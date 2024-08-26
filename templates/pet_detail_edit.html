@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Adoption Pets
+{% endblock %}
+
+{% block content%}
+<style>
+    input[type="checkbox"] {
+        width: 40px;
+    }
+</style>
+<div class="media p-3 mw-50">
+
+    <img class="mr-3 w-25" src="{{ pet.photo_url }}" alt="{{ pet.name}}">
+    <div class="media-body">
+        <h2 class="mt-0"> {{pet.name}} </h2>
+        <p class="text-secondary font-italic">Age in years: {{pet.age}}</p>
+        <p class="text-secondary font-italic">Species: {{pet.species}}</p>
+        <p class="text-secondary font-italic">Notes: {{pet.notes}}</p>
+        {% if pet.available %}
+        <p class="text-success font-italic ">{{pet.name}} {{pet.format_available()}}</p>
+        {% else %}
+        <p class="text-danger font-italic ">{{pet.name}} {{pet.format_available()}}</p>
+        {% endif %}
+    </div>
+</div>
+
+<div>
+
+    <h1 class="ml-3">Edit {{pet.name}}</h1>
+
+    <form id="pet-add-form" method="POST">
+        {{ pet_form.hidden_tag() }} <!--add type=hidden form fields -->
+
+        {% for field in pet_form
+        if field.widget.input_type != 'hidden' %}
+
+        <div class="form-group row ml-3">
+            {{ field.label(class_="text-dark font-weight-bold col-sm-1 col-form-label") }}
+            <div class="col-sm-6">
+                {{ field(class_="form-control") }}
+            </div>
+
+
+            {% for error in field.errors %}
+            <small class="form-text text-danger">{{error}}</small>
+            {% endfor %}
+        </div>
+
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary ml-3">Update</button>
+        <a class="btn btn-outline-info" href="/">Go to Homepage</a>
+    </form>
+</div>
+
+
+
+
+
+{% endblock %}

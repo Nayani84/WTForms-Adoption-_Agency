@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Adoption Pets
+{% endblock %}
+
+{% block content%}
+
+<h1 class="ml-3 text-center">Pets</h1>
+<div class="row justify-content-center ">
+  {% for pet in pets %}
+
+  <div class="col-md-3 ml-3">
+    <img class="img-thumbnail w-50" src="{{pet.photo_url}}" alt="pet image here"><br>
+    <a class="text-success font-weight-bold " href="/{{pet.id}}">{{pet.name}}</a>
+
+    {% if pet.available %}
+    <p class="text-secondary font-italic">{{pet.format_available()}}</p>
+    {% else %}
+    <p class="text-danger font-italic ">{{pet.format_available()}}</p>
+    {% endif %}
+    
+  </div>
+
+  {% endfor %}
+
+</div>
+<div class="ml-3">
+  <a class="btn btn-info btn-lg" href="/add">Add a Pet</a>
+</div>
+
+
+{% endblock %}
+
+

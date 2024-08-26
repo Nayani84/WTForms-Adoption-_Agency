@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add New Pet
+{% endblock %}
+
+{% block content%}
+<style>
+    input[type="checkbox"] {
+        width: 40px;
+    }
+</style>
+
+<h1 class="ml-3">Create a new pet</h1>
+
+<form id="pet-add-form" method="POST">
+    {{ pet_form.hidden_tag() }} <!--add type=hidden form fields -->
+
+    {% for field in pet_form
+    if field.widget.input_type != 'hidden' %}
+
+    <div class="form-group row ml-3">
+        {{ field.label(class_="text-dark font-weight-bold col-sm-1 col-form-label") }}
+        <div class="col-sm-6">
+            {{ field(class_="form-control") }}
+        </div>
+
+        {% for error in field.errors %}
+        <small class="form-text text-danger">{{error}}</small>
+        {% endfor %}
+    </div>
+
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary ml-3">Submit</button>
+</form>
+
+{% endblock %}
